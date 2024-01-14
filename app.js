@@ -1,9 +1,12 @@
-let firstNum = false;
-let secondNum = false;
-let operand;
-let pressedOperand;
-let negative = false;
+let firstNum = 0;
+let secondNum = 0;
+let lastNum = 0;
+let operand = false;
+let pressedOperand = false;
+let pressedEqual = false;
+// let negative = false;
 const display = document.querySelector('.display');
+const operations = document.querySelector('.operations');
 const calculator = document.querySelector('.calculator');
 const clear = document.querySelector('#clear');
 const plusminus = document.querySelector('#plusminus');
@@ -34,7 +37,10 @@ function updateNumber(input) {
         if (input == 0) return;
         display.textContent = input;
         clear.firstChild.textContent = "C";
-    } else { display.textContent = `${display.textContent}${input}`; }
+    } else {
+        if (display.textContent == '-0') return display.textContent = `-${input}`;
+        display.textContent = `${display.textContent}${input}`; 
+    }
 }
 
 //number is inputted
@@ -75,22 +81,27 @@ calculator.addEventListener('click', (e) => {
     //     };
     // }
 
+    // clear pressed
     if (target == clear || target.parentNode == clear) {
         if (clear.firstChild.textContent == "AC") {
             pressedOperand = false;
             if (document.querySelector('.active')) document.querySelector('.active').classList.toggle('active');
-            firstNum = false;
+            operations.textContent = '';
+            firstNum = 0;
+            lastNum = 0;
         }
         if (!secondNum) {
             clear.firstChild.textContent = "AC";
-            firstNum = false;
+            firstNum = 0;
             //negative = false;
         }
         display.textContent = 0;
-        secondNum = false;
+        secondNum = 0;
     }
 
     if (target == plusminus || target.parentNode == plusminus) {
+        if (display.textContent == '0') return display.textContent = '-0';
+        if (display.textContent == '-0') return display.textContent = 0;
         display.textContent *= -1;
     }
 
@@ -103,6 +114,11 @@ calculator.addEventListener('click', (e) => {
 
     if (target.classList.contains('operand') || target.parentNode.classList.contains('operand')) {
         if (pressedOperand) {
+            if (document.querySelector('.active')) {
+                document.querySelector('.active').classList.toggle('active');
+                target.closest('.operand').classList.add('active');
+                return;
+            }
             operate();
         }
         operand = target.textContent;
@@ -113,38 +129,75 @@ calculator.addEventListener('click', (e) => {
         firstNum = display.textContent.replace(',','');
     }
 
+    // equal pressed
     if (target.classList.contains('equal') || target.parentNode.classList.contains('equal')) {
+        if (operand && lastNum) {
+            operate(true);
+            pressedOperand = false;
+            return;
+        }
         if (!secondNum) return firstNum = display.textContent.replace(',','');
-        operate();
+        operate(false);
         pressedOperand = false;
+        return;
     }
 });
 
-function operate() {
-    console.log("operation success");
+function operate(isOperationDone) {
     let solution;
-    switch(operand) {
-        case '+':
-            solution = add(+firstNum, +secondNum);
-        break;
-
-        case '–':
-            solution = subtract(+firstNum, +secondNum);
-        break;
-
-        case '×':
-            solution = multiply(+firstNum, +secondNum);
-        break;
-
-        case '÷':
-            solution = divide(+firstNum, +secondNum);
-        break;
+    if (isOperationDone) {
+        switch(operand) {
+            case '+':
+                solution = add(+firstNum, +lastNum);
+            break;
+    
+            case '–':
+                solution = subtract(+firstNum, +lastNum);
+            break;
+    
+            case '×':
+                solution = multiply(+firstNum, +lastNum);
+            break;
+    
+            case '÷':
+                solution = divide(+firstNum, +lastNum);
+            break;
+        }
+        operations.textContent = `${firstNum} ${operand} ${lastNum}`;
+        display.textContent = solution;
+        firstNum = solution;
+        console.log("lastNum used");
+        return;
     }
-    console.log(`${firstNum} ${operand} ${secondNum}`);
-    if (solution == NaN) console.log("is Nan");
-    display.textContent = solution;
-    firstNum = solution;
-    secondNum = false;
+    if (!isOperationDone) {
+        switch(operand) {
+            case '+':
+                solution = add(+firstNum, +secondNum);
+            break;
+    
+            case '–':
+                solution = subtract(+firstNum, +secondNum);
+            break;
+    
+            case '×':
+                solution = multiply(+firstNum, +secondNum);
+            break;
+    
+            case '÷':
+                solution = divide(+firstNum, +secondNum);
+            break;
+        }
+        if (operations.textContent == '') {
+            operations.textContent = `${firstNum} ${operand} ${secondNum}`;
+        } else {
+            operations.textContent = `${operations.textContent} ${operand} ${secondNum}`;
+        }
+        display.textContent = solution;
+        firstNum = solution;
+        lastNum = secondNum;
+        secondNum = 0;
+        console.log("secondNum used");
+    }
 }
 
 function add(a, b) {
