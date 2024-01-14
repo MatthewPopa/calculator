@@ -63,20 +63,24 @@ div.number:hover {
     background-color: #737373;
 }
 
-div.operand {
+div.operand,
+div.equal {
     background-color: #ff9f0a;
 }
 
-div.operand.active {
+div.operand.active,
+div.equal.active {
     background-color: white;
     color: #ff9f0a;
 }
 
-div.operand > div {
+div.operand > div,
+div.equal > div {
     font-size: 1.2em;
 }
 
-div.operand:hover {
+div.operand:hover,
+div.equal:hover {
     background-color: #fcc78d;
 }
 
