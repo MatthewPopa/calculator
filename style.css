@@ -34,8 +34,9 @@ body {
     text-align: right;
 }
 
-.display {
+.display-container {
     width: 100%;
+    max-width: 400px;
     display: flex;
     justify-content: flex-end;
     font-weight: 250;
@@ -43,7 +44,11 @@ body {
     grid-column: span 4;
     cursor: default;
     letter-spacing: -.05em;
-    padding-right: 0.4em;
+}
+
+.display {
+    transform-origin: right;
+    padding: 0 0.2em;
 }
 
 .calculator {
