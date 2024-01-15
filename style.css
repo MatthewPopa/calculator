@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200..500&display=swap');
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family: -apple-system, "Inter", sans-serif;
     background-color: black;
     color: white;
     display: flex;
@@ -109,9 +109,6 @@ div.function {
 
 div.function > div {
     font-size: .8em;
-}
-
-#clear {
     font-weight: 500;
 }
 
