@@ -253,9 +253,15 @@ function divide(a, b) {
 function percentage(a) {
     pressedPercent = true;
     let decimalPos = '';
+    let output;
     if (a.includes('.')) decimalPos = a.indexOf('.');
-    if (decimalPos) return (a / 100).toFixed(a.slice(decimalPos).length + 1);
-    return (a / 100).toFixed(2);
+    if (decimalPos) {
+        output = (a / 100).toFixed(a.slice(decimalPos).length + 1);
+    } else {
+        output = (a / 100).toFixed(2);
+    }
+    if (output.length > 9) output.toPrecision(9);
+    return output;
 }
 
 function fitText(text) {
