@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200..500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200..500&display=swap');
 
 body {
-    font-family: -apple-system, "Inter", sans-serif;
+    font-family: -apple-system, "Inter Tight", sans-serif;
     background-color: black;
     color: white;
     display: flex;
@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding-bottom: 2em;
+    padding-bottom: 5rem;
     max-width: 400px;
 }
 
@@ -43,23 +43,22 @@ body {
     font-size: 6rem;
     grid-column: span 4;
     cursor: default;
-    letter-spacing: -.05em;
 }
 
 .display {
     transform-origin: right;
-    padding: 0 0.2em;
+    padding: 0 1.2rem;
 }
 
 .calculator {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: .4em;
+    gap: 1rem;
 }
 
 .calculator > div {
-    height: 2.2em;
-    width: 2.2em;
+    height: 5.5rem;
+    width: 5.5rem;
     border-radius: 100vw;
     display: flex;
     align-items: center;
@@ -84,17 +83,13 @@ div.number:hover {
 div.operand,
 div.equal {
     background-color: #ff9f0a;
+    font-size: 1.2em;
 }
 
 div.operand.active,
 div.equal.active {
     background-color: white;
     color: #ff9f0a;
-}
-
-div.operand > div,
-div.equal > div {
-    font-size: 1.2em;
 }
 
 div.operand:hover,
@@ -105,9 +100,6 @@ div.equal:hover {
 div.function {
     background-color: #a5a5a5;
     color: black;
-}
-
-div.function > div {
     font-size: .8em;
     font-weight: 500;
 }
@@ -118,7 +110,7 @@ div.function:hover {
 
 #n0 {
     grid-column: span 2;
-    width: 4.1em;
-    padding-left: .7em;
+    width: 10.25rem;
+    padding-left: 1.75rem;
     justify-content: flex-start;
 }

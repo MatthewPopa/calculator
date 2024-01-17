@@ -100,7 +100,7 @@ calculator.addEventListener('click', (e) => {
     // }
 
     // clear pressed
-    if (target == clear || target.parentNode == clear) {
+    if (target == clear) {
         if (clear.firstChild.textContent == "AC") {
             pressedOperand = false;
             if (document.querySelector('.active')) document.querySelector('.active').classList.toggle('active');
@@ -120,7 +120,7 @@ calculator.addEventListener('click', (e) => {
         display.style.transform = `unset`;
     }
 
-    if (target == plusminus || target.parentNode == plusminus) {
+    if (target == plusminus) {
         if (display.textContent == '0') return display.textContent = '-0';
         if (display.textContent == '-0') return display.textContent = 0;
         display.textContent = display.textContent.replaceAll(',','') * -1;
@@ -129,7 +129,7 @@ calculator.addEventListener('click', (e) => {
         fitText(display);
     }
 
-    if (target == percent || target.parentNode == percent) {
+    if (target == percent) {
         if (display.textContent == 0) {
             return;
         }
@@ -138,7 +138,7 @@ calculator.addEventListener('click', (e) => {
         addCommas(display);
     }
 
-    if (target.classList.contains('operand') || target.parentNode.classList.contains('operand')) {
+    if (target.classList.contains('operand')) {
         if (pressedOperand) {
             if (document.querySelector('.active')) {
                 document.querySelector('.active').classList.toggle('active');
@@ -157,7 +157,7 @@ calculator.addEventListener('click', (e) => {
     }
 
     // equal pressed
-    if (target.classList.contains('equal') || target.parentNode.classList.contains('equal')) {
+    if (target.classList.contains('equal')) {
         if (operand && lastNum) {
             operate(true);
             pressedOperand = false;
